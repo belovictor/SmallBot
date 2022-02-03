@@ -61,6 +61,15 @@
             </geometry>
         </collision>
     </link>
+    <link name="rear_left_wheel_marker">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="0.03 0.005 0.005" />
+            </geometry>
+            <material name="White" />
+        </visual>
+    </link>
     <link name="rear_right_wheel">
         <visual>
 			<origin xyz="0 0 0" rpy="1.5708 0 0" />
@@ -75,6 +84,15 @@
                 <cylinder length="0.035" radius="0.035"/>
             </geometry>
         </collision>
+    </link>
+        <link name="rear_right_wheel_marker">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="0.03 0.005 0.005" />
+            </geometry>
+            <material name="White" />
+        </visual>
     </link>
     <link name="front_left_wheel">
         <visual>
@@ -91,6 +109,15 @@
             </geometry>
         </collision>
     </link>
+    <link name="front_left_wheel_marker">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="0.03 0.005 0.005" />
+            </geometry>
+            <material name="White" />
+        </visual>
+    </link>
     <link name="front_right_wheel">
         <visual>
 			<origin xyz="0 0 0" rpy="1.5708 0 0" />
@@ -105,6 +132,15 @@
                 <cylinder length="0.035" radius="0.035"/>
             </geometry>
         </collision>
+    </link>
+        <link name="front_right_wheel_marker">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="0.03 0.005 0.005" />
+            </geometry>
+            <material name="White" />
+        </visual>
     </link>
     <link name="middle_left_wheel">
         <visual>
@@ -121,6 +157,15 @@
             </geometry>
         </collision>
     </link>
+        <link name="middle_left_wheel_marker">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="0.03 0.005 0.005" />
+            </geometry>
+            <material name="White" />
+        </visual>
+    </link>
     <link name="middle_right_wheel">
         <visual>
 			<origin xyz="0 0 0" rpy="1.5708 0 0" />
@@ -136,11 +181,25 @@
             </geometry>
         </collision>
     </link>
+    <link name="middle_right_wheel_marker">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="0.03 0.005 0.005" />
+            </geometry>
+            <material name="White" />
+        </visual>
+    </link>
     <joint name="base_to_rear_left_wheel" type="continuous">
         <axis rpy="0 0 0" xyz="0 1 0"/>
         <parent link="base_link" />
         <child link="rear_left_wheel" />
         <origin xyz="-0.104 0.0925 0" rpy="0 0 0"/>
+    </joint>
+    <joint name="rear_left_wheel_to_marker" type="fixed">
+        <parent link="rear_left_wheel" />
+        <child link="rear_left_wheel_marker" />
+        <origin xyz="0.015 0.0175 0" rpy="0 0 0" />
     </joint>
     <joint name="base_to_rear_right_wheel" type="continuous">
         <axis rpy="0 0 0" xyz="0 1 0"/>
@@ -148,11 +207,21 @@
         <child link="rear_right_wheel" />
 		<origin xyz="-0.104 -0.0925 0" rpy="0 0 0"/>
     </joint>
+    <joint name="rear_right_wheel_to_marker" type="fixed">
+        <parent link="rear_right_wheel" />
+        <child link="rear_right_wheel_marker" />
+        <origin xyz="0.015 -0.0175 0" rpy="0 0 0" />
+    </joint>
     <joint name="base_to_front_left_wheel" type="continuous">
         <axis rpy="0 0 0" xyz="0 1 0"/>
         <parent link="base_link" />
         <child link="front_left_wheel" />
 		<origin xyz="0.104 0.0925 0" rpy="0 0 0" />
+    </joint>
+    <joint name="front_left_wheel_to_marker" type="fixed">
+        <parent link="front_left_wheel" />
+        <child link="front_left_wheel_marker" />
+        <origin xyz="0.015 0.0175 0" rpy="0 0 0" />
     </joint>
     <joint name="base_to_front_right_wheel" type="continuous">
         <axis rpy="0 0 0" xyz="0 1 0"/>
@@ -160,16 +229,31 @@
         <child link="front_right_wheel" />
 		<origin xyz="0.104 -0.0925 0" rpy="0 0 0" />
     </joint>
+    <joint name="front_right_wheel_to_marker" type="fixed">
+        <parent link="front_right_wheel" />
+        <child link="front_right_wheel_marker" />
+        <origin xyz="0.015 -0.0175 0" rpy="0 0 0" />
+    </joint>
     <joint name="base_to_middle_left_wheel" type="continuous">
         <axis rpy="0 0 0" xyz="0 1 0"/>
         <parent link="base_link" />
         <child link="middle_left_wheel" />
 		<origin xyz="0 0.0925 0" rpy="0 0 0" />
     </joint>
+    <joint name="middle_left_wheel_to_marker" type="fixed">
+        <parent link="middle_left_wheel" />
+        <child link="middle_left_wheel_marker" />
+        <origin xyz="0.015 0.0175 0" rpy="0 0 0" />
+    </joint>
     <joint name="base_to_middle_right_wheel" type="continuous">
         <axis rpy="0 0 0" xyz="0 1 0"/>
         <parent link="base_link" />
         <child link="middle_right_wheel" />
 		<origin xyz="0 -0.0925 0" rpy="0 0 0" />
+    </joint>
+    <joint name="middle_right_wheel_to_marker" type="fixed">
+        <parent link="middle_right_wheel" />
+        <child link="middle_right_wheel_marker" />
+        <origin xyz="0.015 -0.0175 0" rpy="0 0 0" />
     </joint>
 </robot>
