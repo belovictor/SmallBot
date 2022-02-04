@@ -1,0 +1,7 @@
+<launch>
+    <include file="$(find smallbot_description)/launch/display_model.launch" />
+	<rosparam file="$(find smallbot_control)/config/smallbot_control_config.yaml" command="load" />
+	<node name="controller_spawner" pkg="controller_manager" type="spawner"
+		respawn="false" output="screen" args="joint_state_controller smallbot_drive_controller" />
+    <include file="$(find smallbot_base)/launch/smallbot_base.launch" />
+</launch>
