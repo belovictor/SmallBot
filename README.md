@@ -34,3 +34,5 @@ Then start control
 
 Open robot control plugin from menu - Plugins -> Robot tools -> Robot steering - and set topic to /cmd_vel
 Change linear and angular velocity to make robot moving in Gazebo simulation
+
+![gazebo circle move animation](smallbot_gazebo/video/smallbot_circle_move.gif)
