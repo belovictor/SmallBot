@@ -4,6 +4,15 @@ SmallBot is a simple 6WD robot simulation based on ROS and Gazebo. The project i
 
 ![rviz image](smallbot_description/images/smallbot_rviz.png)
 
+Robot movement and control simulation is based on Gazebo joint_state_publisher and DiffDrivePlugin6W plugins.
+
+## What's in the project
+
+smallbot_base/ - base robot software, not finished yet
+smallbot_control/ - robot control, not finished yet
+smallbot_description/ - xacro/urdf robot model for RVIZ and Gazebo
+smallbot_gazebo/ - Gazebo robot simulation
+
 ## Working with robot
 
 Checkout the repository into src directory of ros workspace
