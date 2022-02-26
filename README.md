@@ -45,3 +45,7 @@ Open robot control plugin from menu - Plugins -> Robot tools -> Robot steering -
 Change linear and angular velocity to make robot moving in Gazebo simulation
 
 ![gazebo circle move animation](smallbot_gazebo/video/smallbot_circle_move.gif)
+
+Lidar readings can be visualized in RVIZ
+
+![rviz image](smallbot_description/images/smallbot_rviz_lidar.png)
