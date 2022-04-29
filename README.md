@@ -15,6 +15,9 @@ smallbot_gazebo/ - Gazebo robot simulation
 
 ## Working with robot
 
+Be sure you have ros-melodic-hector-gazebo package installed as SmallBot uses plugins from this package
+``sudo apt-get install ros-melodic-hector-gazebo``
+
 Checkout the repository into src directory of ros workspace
 
 ``git clone https://github.com/belovictor/SmallBot.git``
