@@ -9,6 +9,7 @@ project(smallbot_driver)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
+  rospy
   std_msgs
 )
 
@@ -148,6 +149,11 @@ add_executable(dc_motors src/dc_motors.cpp src/I2C.cpp src/PCA9685.cpp src/dc_mo
 target_link_libraries(dc_motors
   ${catkin_LIBRARIES}
 )
+
+# add_executable(encoders src/encoders.cpp)
+# target_link_libraries(encoders
+#   ${catkin_LIBRARIES}
+# )
 
 #############
 ## Install ##
