@@ -26,7 +26,7 @@ Motors are controlled by 3 modified [Waveshare Motor Driver HAT for Raspberry bo
 smallbot_base/ - base robot software, not finished yet  
 smallbot_control/ - robot control, not finished yet  
 smallbot_description/ - xacro/urdf robot model for RVIZ and Gazebo  
-smallbot_driver/ - ROS nodes to interface with SmallBot hardware (motors and motor encoders)
+smallbot_driver/ - ROS nodes to interface with SmallBot hardware (motors and motor encoders)  
 smallbot_gazebo/ - Gazebo robot simulation
 
 ## Working with robot
