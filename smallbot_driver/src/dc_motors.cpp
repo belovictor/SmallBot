@@ -12,7 +12,7 @@ void frontLeftMotorCallback(const std_msgs::Float64& msg) {
     if (pwm > 0) {
         frontMotors->motorRun(0, MOTOR_DIRECTION_FORWARD, pwm);
     } else if (pwm < 0) {
-        frontMotors->motorRun(0, MOTOR_DIRECTION_BACKWARD, pwm);
+        frontMotors->motorRun(0, MOTOR_DIRECTION_BACKWARD, abs(pwm));
     } else if (pwm == 0) {
         frontMotors->motorStop(0);
     }
@@ -23,7 +23,7 @@ void frontRightMotorCallback(const std_msgs::Float64& msg) {
     if (pwm > 0) {
         frontMotors->motorRun(1, MOTOR_DIRECTION_FORWARD, pwm);
     } else if (pwm < 0) {
-        frontMotors->motorRun(1, MOTOR_DIRECTION_BACKWARD, pwm);
+        frontMotors->motorRun(1, MOTOR_DIRECTION_BACKWARD, abs(pwm));
     } else if (pwm == 0) {
         frontMotors->motorStop(1);
     }
@@ -34,7 +34,7 @@ void middleLeftMotorCallback(const std_msgs::Float64& msg) {
     if (pwm > 0) {
         middleMotors->motorRun(0, MOTOR_DIRECTION_FORWARD, pwm);
     } else if (pwm < 0) {
-        middleMotors->motorRun(0, MOTOR_DIRECTION_BACKWARD, pwm);
+        middleMotors->motorRun(0, MOTOR_DIRECTION_BACKWARD, abs(pwm));
     } else if (pwm == 0) {
         middleMotors->motorStop(0);
     }
@@ -45,7 +45,7 @@ void middleRightMotorCallback(const std_msgs::Float64& msg) {
     if (pwm > 0) {
         middleMotors->motorRun(1, MOTOR_DIRECTION_FORWARD, pwm);
     } else if (pwm < 0) {
-        middleMotors->motorRun(1, MOTOR_DIRECTION_BACKWARD, pwm);
+        middleMotors->motorRun(1, MOTOR_DIRECTION_BACKWARD, abs(pwm));
     } else if (pwm == 0) {
         middleMotors->motorStop(1);
     }
@@ -56,7 +56,7 @@ void rearLeftMotorCallback(const std_msgs::Float64& msg) {
     if (pwm > 0) {
         rearMotors->motorRun(0, MOTOR_DIRECTION_FORWARD, pwm);
     } else if (pwm < 0) {
-        rearMotors->motorRun(0, MOTOR_DIRECTION_BACKWARD, pwm);
+        rearMotors->motorRun(0, MOTOR_DIRECTION_BACKWARD, abs(pwm));
     } else if (pwm == 0) {
         rearMotors->motorStop(0);
     }
@@ -67,7 +67,7 @@ void rearRightMotorCallback(const std_msgs::Float64& msg) {
     if (pwm > 0) {
         rearMotors->motorRun(1, MOTOR_DIRECTION_FORWARD, pwm);
     } else if (pwm < 0) {
-        rearMotors->motorRun(1, MOTOR_DIRECTION_BACKWARD, pwm);
+        rearMotors->motorRun(1, MOTOR_DIRECTION_BACKWARD, abs(pwm));
     } else if (pwm == 0) {
         rearMotors->motorStop(1);
     }

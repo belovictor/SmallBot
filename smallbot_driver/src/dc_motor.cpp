@@ -21,7 +21,7 @@ void DCMOTOR::motorRun(int motor, int direction, int speed) {
 
     if (motor == 0) {
         pca9685->setPWM(PWMA, 4095/100*speed);
-        if ((direction == 0 && reverseA == false) | (direction == 1 && reverseA == true)) {
+        if ((direction == 0 && reverseA == false) || (direction == 1 && reverseA == true)) {
             pca9685->setLevel(AIN1, 0);
             pca9685->setLevel(AIN2, 1);
         } else {
@@ -30,7 +30,7 @@ void DCMOTOR::motorRun(int motor, int direction, int speed) {
         }
     } else if (motor == 1) {
         pca9685->setPWM(PWMB, 4095/100*speed);
-        if ((direction == 0 && reverseB == false) | (direction == 1 && reverseB == true)) {
+        if ((direction == 0 && reverseB == false) || (direction == 1 && reverseB == true)) {
             pca9685->setLevel(BIN1, 0);
             pca9685->setLevel(BIN2, 1);
         } else {
