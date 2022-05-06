@@ -1,0 +1,18 @@
+<launch>
+	<!-- Args -->
+	<arg name="gui" default="false" />
+    <arg name="rvizconfig" default="$(find smallbot_description)/rviz/smallbot_model.rviz" />
+	<arg name="model" default="$(find smallbot_description)/urdf/smallbot.xacro" />
+	<!-- Params -->
+	<param name="use_gui" value="$(arg gui)" />
+	<!-- Robot Description from URDF -->
+	<param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)"/>
+	<!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" /> -->
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen" />
+	<include file="$(find smallbot_base)/launch/smallbot_base.launch" />
+	<include file="$(find smallbot_control)/launch/smallbot_control.launch" />
+	<include file="$(find smallbot_driver)/launch/smallbot_drivers.launch" />
+	<!-- <include file="$(find smallbot_teleop)/launch/smallbot_teleop.launch" /> -->
+	<!-- Rviz -->
+    <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="false"/> -->
+</launch>
