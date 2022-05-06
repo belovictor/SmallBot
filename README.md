@@ -21,11 +21,13 @@ Motors are controlled by 3 modified [Waveshare Motor Driver HAT for Raspberry bo
 
 [Slamtec RPLidar A1](https://www.slamtec.com/en/Lidar/A1) is used for scanning surroundings and navigation.
 
+Temporarily I had to switched the hardware platform to Raspberry PI as I was not able to reach needed performance on reading motor encoders through Jetson GPIO even after switching from python to c++. This is still a subject from investigation.
+
 ## What's in the project
 
-smallbot_base/ - base robot software, not finished yet  
-smallbot_control/ - robot control, not finished yet  
-smallbot_description/ - xacro/urdf robot model for RVIZ and Gazebo  
+smallbot_base/ - base robot software, which intefaces controllers to hardware drivers  
+smallbot_control/ - robot control, based on diffdrive controller  
+smallbot_description/ - xacro/urdf robot model for RVIZ and Gazebo and rviz files for visualisations  
 smallbot_driver/ - ROS nodes to interface with SmallBot hardware (motors and motor encoders)  
 smallbot_gazebo/ - Gazebo robot simulation
 
@@ -61,7 +63,7 @@ Then start control
 
 ``rqt``
 
-Open robot control plugin from menu - Plugins -> Robot tools -> Robot steering - and set topic to /cmd_vel
+Open robot control plugin from menu - Plugins -> Robot tools -> Robot steering - and set topic to /cmd_vel  
 Change linear and angular velocity to make robot moving in Gazebo simulation
 
 ![gazebo circle move animation](smallbot_gazebo/video/smallbot_circle_move.gif)
@@ -69,3 +71,20 @@ Change linear and angular velocity to make robot moving in Gazebo simulation
 Lidar readings can be visualized in RVIZ
 
 ![rviz image](smallbot_description/images/smallbot_rviz_lidar.png)
+
+### Operating the real robot
+
+Launch all nodes on robot
+
+``roslaunch smallbot_description bringup.launch``
+
+Then launch RVIZ visualisation to monitor robot movements
+
+``roslaunch smallbot_description display_movement.launch``
+
+Finally to control robot movements
+
+``rqt``
+
+Open robot control plugin from menu - Plugins -> Robot tools -> Robot steering - and set topic to /smallbot_drive_controller/cmd_vel  
+Change linear and angular velocity to make robot moving in Gazebo simulation
