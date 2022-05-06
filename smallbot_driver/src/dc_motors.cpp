@@ -8,7 +8,7 @@ DCMOTOR *middleMotors = new DCMOTOR(0, 0x42, true, false);
 DCMOTOR *rearMotors = new DCMOTOR(0, 0x41, true, false);
 
 void frontLeftMotorCallback(const std_msgs::Float64& msg) {
-    int16_t pwm = msg.data * 100;
+    int16_t pwm = msg.data * 10;
     if (pwm > 0) {
         frontMotors->motorRun(0, MOTOR_DIRECTION_FORWARD, pwm);
     } else if (pwm < 0) {
@@ -19,7 +19,7 @@ void frontLeftMotorCallback(const std_msgs::Float64& msg) {
 }
 
 void frontRightMotorCallback(const std_msgs::Float64& msg) {
-    int16_t pwm = msg.data * 100;
+    int16_t pwm = msg.data * 10;
     if (pwm > 0) {
         frontMotors->motorRun(1, MOTOR_DIRECTION_FORWARD, pwm);
     } else if (pwm < 0) {
@@ -30,7 +30,7 @@ void frontRightMotorCallback(const std_msgs::Float64& msg) {
 }
 
 void middleLeftMotorCallback(const std_msgs::Float64& msg) {
-    int16_t pwm = msg.data * 100;
+    int16_t pwm = msg.data * 10;
     if (pwm > 0) {
         middleMotors->motorRun(0, MOTOR_DIRECTION_FORWARD, pwm);
     } else if (pwm < 0) {
@@ -41,7 +41,7 @@ void middleLeftMotorCallback(const std_msgs::Float64& msg) {
 }
 
 void middleRightMotorCallback(const std_msgs::Float64& msg) {
-    int16_t pwm = msg.data * 100;
+    int16_t pwm = msg.data * 10;
     if (pwm > 0) {
         middleMotors->motorRun(1, MOTOR_DIRECTION_FORWARD, pwm);
     } else if (pwm < 0) {
@@ -52,7 +52,7 @@ void middleRightMotorCallback(const std_msgs::Float64& msg) {
 }
 
 void rearLeftMotorCallback(const std_msgs::Float64& msg) {
-    int16_t pwm = msg.data * 100;
+    int16_t pwm = msg.data * 10;
     if (pwm > 0) {
         rearMotors->motorRun(0, MOTOR_DIRECTION_FORWARD, pwm);
     } else if (pwm < 0) {
@@ -63,7 +63,7 @@ void rearLeftMotorCallback(const std_msgs::Float64& msg) {
 }
 
 void rearRightMotorCallback(const std_msgs::Float64& msg) {
-    int16_t pwm = msg.data * 100;
+    int16_t pwm = msg.data * 10;
     if (pwm > 0) {
         rearMotors->motorRun(1, MOTOR_DIRECTION_FORWARD, pwm);
     } else if (pwm < 0) {

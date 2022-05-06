@@ -1,7 +1,8 @@
 <launch>
 	<!-- <node name="encoders" pkg="abot_driver" type="encoders" output="screen" /> -->
 	<node name="dc_motors" pkg="smallbot_driver" type="dc_motors" output="screen" />
-	<node name="encoders" pkg="smallbot_driver" type="encoders.py" output="screen" />
-	<!-- <include file="$(find abot_driver)/launch/abot_pid.launch" />
-	<include file="$(find abot_driver)/launch/abot_lidar.launch" /> -->
+	<node name="encoders" pkg="smallbot_driver" type="encoders" output="screen" />
+	<!-- <node name="encoders_test" pkg="smallbot_driver" type="encoders_test" output="screen" /> -->
+	<include file="$(find smallbot_driver)/launch/smallbot_pid.launch" />
+	<include file="$(find smallbot_driver)/launch/smallbot_lidar.launch" />
 </launch>

@@ -86,8 +86,8 @@ uint8_t I2C::write_byte(uint8_t address, uint8_t data) {
 					_i2caddr, address, errno);
 			return (-1);
 		} else {
-			syslog(LOG_INFO, "Wrote to I2C Slave 0x%x @ register 0x%x [0x%x]",
-					_i2caddr, address, data);
+			// syslog(LOG_DEBUG, "Wrote to I2C Slave 0x%x @ register 0x%x [0x%x]",
+			// 		_i2caddr, address, data);
 			return (-1);
 		}
 	} else {

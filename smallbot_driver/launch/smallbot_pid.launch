@@ -1,0 +1,91 @@
+<launch>
+    <node name="controller" pkg="pid" type="controller" ns="/smallbot/front_left_wheel" output="screen" >
+        <param name="node_name" value="front_left_wheel_pid" />
+        <param name="Kp" value="0.1" />
+        <param name="Ki" value="10.0" />
+        <param name="Kd" value="0.0" />
+        <param name="upper_limit" value="10" />
+        <param name="lower_limit" value="-10" />
+        <param name="windup_limit" value="10" />
+        <param name="max_loop_frequency" value="100.0" />
+        <param name="min_loop_frequency" value="100.0" />
+        <remap from="/smallbot/front_left_wheel/setpoint" to="/smallbot/front_left_wheel/target_velocity" />
+        <remap from="/smallbot/front_left_wheel/state" to="/smallbot/front_left_wheel/current_velocity" />
+        <remap from="/smallbot/front_left_wheel/control_effort" to="/smallbot/front_left_wheel/pwm" />
+    </node>
+
+    <node name="controller" pkg="pid" type="controller" ns="/smallbot/front_right_wheel" output="screen" >
+        <param name="node_name" value="front_right_wheel_pid" />
+        <param name="Kp" value="0.1" />
+        <param name="Ki" value="10.0" />
+        <param name="Kd" value="0.0" />
+        <param name="upper_limit" value="10.23" />
+        <param name="lower_limit" value="-10.23" />
+        <param name="windup_limit" value="10.23" />
+        <param name="max_loop_frequency" value="100.0" />
+        <param name="min_loop_frequency" value="100.0" />
+        <remap from="/smallbot/front_right_wheel/setpoint" to="/smallbot/front_right_wheel/target_velocity" />
+        <remap from="/smallbot/front_right_wheel/state" to="/smallbot/front_right_wheel/current_velocity" />
+        <remap from="/smallbot/front_right_wheel/control_effort" to="/smallbot/front_right_wheel/pwm" />
+    </node>
+
+    <node name="controller" pkg="pid" type="controller" ns="/smallbot/middle_left_wheel" output="screen" >
+        <param name="node_name" value="middle_left_wheel_pid" />
+        <param name="Kp" value="0.1" />
+        <param name="Ki" value="10.0" />
+        <param name="Kd" value="0.0" />
+        <param name="upper_limit" value="10" />
+        <param name="lower_limit" value="-10" />
+        <param name="windup_limit" value="10" />
+        <param name="max_loop_frequency" value="100.0" />
+        <param name="min_loop_frequency" value="100.0" />
+        <remap from="/smallbot/middle_left_wheel/setpoint" to="/smallbot/middle_left_wheel/target_velocity" />
+        <remap from="/smallbot/middle_left_wheel/state" to="/smallbot/middle_left_wheel/current_velocity" />
+        <remap from="/smallbot/middle_left_wheel/control_effort" to="/smallbot/middle_left_wheel/pwm" />
+    </node>
+
+    <node name="controller" pkg="pid" type="controller" ns="/smallbot/middle_right_wheel" output="screen" >
+        <param name="node_name" value="middle_right_wheel_pid" />
+        <param name="Kp" value="0.1" />
+        <param name="Ki" value="10.0" />
+        <param name="Kd" value="0.0" />
+        <param name="upper_limit" value="10" />
+        <param name="lower_limit" value="-10" />
+        <param name="windup_limit" value="10" />
+        <param name="max_loop_frequency" value="100.0" />
+        <param name="min_loop_frequency" value="100.0" />
+        <remap from="/smallbot/middle_right_wheel/setpoint" to="/smallbot/middle_right_wheel/target_velocity" />
+        <remap from="/smallbot/middle_right_wheel/state" to="/smallbot/middle_right_wheel/current_velocity" />
+        <remap from="/smallbot/middle_right_wheel/control_effort" to="/smallbot/middle_right_wheel/pwm" />
+    </node>
+
+    <node name="controller" pkg="pid" type="controller" ns="/smallbot/rear_left_wheel" output="screen" >
+        <param name="node_name" value="rear_left_wheel_pid" />
+        <param name="Kp" value="0.1" />
+        <param name="Ki" value="10.0" />
+        <param name="Kd" value="0.0" />
+        <param name="upper_limit" value="10" />
+        <param name="lower_limit" value="-10" />
+        <param name="windup_limit" value="10" />
+        <param name="max_loop_frequency" value="100.0" />
+        <param name="min_loop_frequency" value="100.0" />
+        <remap from="/smallbot/rear_left_wheel/setpoint" to="/smallbot/rear_left_wheel/target_velocity" />
+        <remap from="/smallbot/rear_left_wheel/state" to="/smallbot/rear_left_wheel/current_velocity" />
+        <remap from="/smallbot/rear_left_wheel/control_effort" to="/smallbot/rear_left_wheel/pwm" />
+    </node>
+
+    <node name="controller" pkg="pid" type="controller" ns="/smallbot/rear_right_wheel" output="screen" >
+        <param name="node_name" value="rear_right_wheel_pid" />
+        <param name="Kp" value="0.1" />
+        <param name="Ki" value="10.0" />
+        <param name="Kd" value="0.0" />
+        <param name="upper_limit" value="10" />
+        <param name="lower_limit" value="-10" />
+        <param name="windup_limit" value="10" />
+        <param name="max_loop_frequency" value="100.0" />
+        <param name="min_loop_frequency" value="100.0" />
+        <remap from="/smallbot/rear_right_wheel/setpoint" to="/smallbot/rear_right_wheel/target_velocity" />
+        <remap from="/smallbot/rear_right_wheel/state" to="/smallbot/rear_right_wheel/current_velocity" />
+        <remap from="/smallbot/rear_right_wheel/control_effort" to="/smallbot/rear_right_wheel/pwm" />
+    </node>
+</launch>
