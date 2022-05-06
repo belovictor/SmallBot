@@ -1,22 +1,22 @@
 joint_state_controller:
   type: "joint_state_controller/JointStateController"
-  publish_rate: 20
+  publish_rate: 100
 
 smallbot_drive_controller:
   type: "diff_drive_controller/DiffDriveController"
   left_wheel: ['base_to_rear_left_wheel', 'base_to_middle_left_wheel', 'base_to_front_left_wheel']
   right_wheel: ['base_to_rear_right_wheel', 'base_to_middle_right_wheel', 'base_to_front_right_wheel']
-  publish_rate: 20
+  publish_rate: 100
   pose_covariance_diagonal:  [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 0.03]
   twist_covariance_diagonal: [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 0.03]
   cmd_vel_timeout: 1000000000
 
   # Base frame_id
-  base_frame_id: base_footprint
+  base_frame_id: base_link
 
   # Odometry fused with IMU is published by robot_localization, so
   # no need to publish a TF based on encoders alone.
-  enable_odom_tf: false
+  enable_odom_tf: true
 
   # Hardware provides wheel velocities
   estimate_velocity_from_position: false
@@ -36,6 +36,6 @@ smallbot_drive_controller:
   angular:
     z:
       has_velocity_limits    : true
-      max_velocity           : 3.0   # rad/s
+      max_velocity           : 4.71   # rad/s
       has_acceleration_limits: true
-      max_acceleration       : 3.0   # rad/s^2
+      max_acceleration       : 9.42   # rad/s^2

@@ -28,10 +28,19 @@ private:
 	hardware_interface::JointStateInterface _joint_state_interface;
 	hardware_interface::VelocityJointInterface _velocity_joint_interface;
 
-	ros::Subscriber _left_wheel_angle_sub;
-	ros::Subscriber _right_wheel_angle_sub;
-	ros::Publisher _left_wheel_vel_pub;
-	ros::Publisher _right_wheel_vel_pub;
+	ros::Subscriber _front_left_wheel_angle_sub;
+	ros::Subscriber _front_right_wheel_angle_sub;
+	ros::Subscriber _middle_left_wheel_angle_sub;
+	ros::Subscriber _middle_right_wheel_angle_sub;
+	ros::Subscriber _rear_left_wheel_angle_sub;
+	ros::Subscriber _rear_right_wheel_angle_sub;
+
+	ros::Publisher _front_left_wheel_vel_pub;
+	ros::Publisher _front_right_wheel_vel_pub;
+	ros::Publisher _middle_left_wheel_vel_pub;
+	ros::Publisher _middle_right_wheel_vel_pub;
+	ros::Publisher _rear_left_wheel_vel_pub;
+	ros::Publisher _rear_right_wheel_vel_pub;
 
 	struct Joint {
 		double position;
@@ -45,15 +54,23 @@ private:
 			, velocity(0)
 			, effort(0)
 			, velocity_command(0) { }
-	} _joints[2];
+	} _joints[6];
 
-	double _left_wheel_angle;
-	double _right_wheel_angle;
+	double _front_left_wheel_angle;
+	double _front_right_wheel_angle;
+	double _middle_left_wheel_angle;
+	double _middle_right_wheel_angle;
+	double _rear_left_wheel_angle;
+	double _rear_right_wheel_angle;
 	double _max_wheel_angular_speed;
 
 	void registerControlInterfaces();
-	void leftWheelAngleCallback(const std_msgs::Float64& msg);
-	void rightWheelAngleCallback(const std_msgs::Float64& msg);
+	void frontLeftWheelAngleCallback(const std_msgs::Float64& msg);
+	void frontRightWheelAngleCallback(const std_msgs::Float64& msg);
+	void middleLeftWheelAngleCallback(const std_msgs::Float64& msg);
+	void middleRightWheelAngleCallback(const std_msgs::Float64& msg);
+	void rearLeftWheelAngleCallback(const std_msgs::Float64& msg);
+	void rearRightWheelAngleCallback(const std_msgs::Float64& msg);
 	void limitDifferentialSpeed(double& diff_speed_left_side, double& diff_speed_right_side);
 };
 
@@ -63,50 +80,109 @@ SmallBotHardwareInterface::SmallBotHardwareInterface(ros::NodeHandle node, ros::
 	, _max_wheel_angular_speed(target_max_wheel_angular_speed) {
 	registerControlInterfaces();
 
-	_left_wheel_vel_pub = _node.advertise<std_msgs::Float64>("/smallbot/left_wheel/target_velocity", 1);
-	_right_wheel_vel_pub = _node.advertise<std_msgs::Float64>("/smallbot/right_wheel/target_velocity", 1);
-	_left_wheel_angle_sub = _node.subscribe("smallbot/left_wheel/angle", 1, &SmallBotHardwareInterface::leftWheelAngleCallback, this);
-	_right_wheel_angle_sub = _node.subscribe("smallbot/right_wheel/angle", 1, &SmallBotHardwareInterface::rightWheelAngleCallback, this);
+	_front_left_wheel_vel_pub = _node.advertise<std_msgs::Float64>("/smallbot/front_left_wheel/target_velocity", 1);
+	_front_right_wheel_vel_pub = _node.advertise<std_msgs::Float64>("/smallbot/front_right_wheel/target_velocity", 1);
+	_middle_left_wheel_vel_pub = _node.advertise<std_msgs::Float64>("/smallbot/middle_left_wheel/target_velocity", 1);
+	_middle_right_wheel_vel_pub = _node.advertise<std_msgs::Float64>("/smallbot/middle_right_wheel/target_velocity", 1);
+	_rear_left_wheel_vel_pub = _node.advertise<std_msgs::Float64>("/smallbot/rear_left_wheel/target_velocity", 1);
+	_rear_right_wheel_vel_pub = _node.advertise<std_msgs::Float64>("/smallbot/rear_right_wheel/target_velocity", 1);
+
+	_front_left_wheel_angle_sub = _node.subscribe("/smallbot/front_left_wheel/angle", 1, &SmallBotHardwareInterface::frontLeftWheelAngleCallback, this);
+	_front_right_wheel_angle_sub = _node.subscribe("/smallbot/front_right_wheel/angle", 1, &SmallBotHardwareInterface::frontRightWheelAngleCallback, this);
+	_middle_left_wheel_angle_sub = _node.subscribe("/smallbot/middle_left_wheel/angle", 1, &SmallBotHardwareInterface::middleLeftWheelAngleCallback, this);
+	_middle_right_wheel_angle_sub = _node.subscribe("/smallbot/middle_right_wheel/angle", 1, &SmallBotHardwareInterface::middleRightWheelAngleCallback, this);
+	_rear_left_wheel_angle_sub = _node.subscribe("/smallbot/rear_left_wheel/angle", 1, &SmallBotHardwareInterface::rearLeftWheelAngleCallback, this);
+	_rear_right_wheel_angle_sub = _node.subscribe("/smallbot/rear_right_wheel/angle", 1, &SmallBotHardwareInterface::rearRightWheelAngleCallback, this);
 }
 
 void SmallBotHardwareInterface::writeCommandsToHardware() {
-	double diff_angle_speed_left = _joints[0].velocity_command;
-	double diff_angle_speed_right = _joints[1].velocity_command;
+	double diff_angle_speed_front_left = _joints[0].velocity_command;
+	double diff_angle_speed_front_right = _joints[1].velocity_command;
+	double diff_angle_speed_middle_left = _joints[2].velocity_command;
+	double diff_angle_speed_middle_right = _joints[3].velocity_command;
+	double diff_angle_speed_rear_left = _joints[4].velocity_command;
+	double diff_angle_speed_rear_right = _joints[5].velocity_command;
 
-	limitDifferentialSpeed(diff_angle_speed_left, diff_angle_speed_right);
+	limitDifferentialSpeed(diff_angle_speed_front_left, diff_angle_speed_front_right);
+	limitDifferentialSpeed(diff_angle_speed_middle_left, diff_angle_speed_middle_right);
+	limitDifferentialSpeed(diff_angle_speed_rear_left, diff_angle_speed_rear_right);
 
-	std_msgs::Float64 left_wheel_vel_msg;
-	std_msgs::Float64 right_wheel_vel_msg;
+	std_msgs::Float64 front_left_wheel_vel_msg;
+	std_msgs::Float64 front_right_wheel_vel_msg;
+	std_msgs::Float64 middle_left_wheel_vel_msg;
+	std_msgs::Float64 middle_right_wheel_vel_msg;
+	std_msgs::Float64 rear_left_wheel_vel_msg;
+	std_msgs::Float64 rear_right_wheel_vel_msg;
 
-	left_wheel_vel_msg.data = diff_angle_speed_left;
-	right_wheel_vel_msg.data = diff_angle_speed_right;
+	front_left_wheel_vel_msg.data = diff_angle_speed_front_left;
+	front_right_wheel_vel_msg.data = diff_angle_speed_front_right;
+	middle_left_wheel_vel_msg.data = diff_angle_speed_middle_left;
+	middle_right_wheel_vel_msg.data = diff_angle_speed_middle_right;
+	rear_left_wheel_vel_msg.data = diff_angle_speed_rear_left;
+	rear_right_wheel_vel_msg.data = diff_angle_speed_rear_right;
 
-	_left_wheel_vel_pub.publish(left_wheel_vel_msg);
-	_right_wheel_vel_pub.publish(right_wheel_vel_msg);
+	_front_left_wheel_vel_pub.publish(front_left_wheel_vel_msg);
+	_front_right_wheel_vel_pub.publish(front_right_wheel_vel_msg);
+	_middle_left_wheel_vel_pub.publish(middle_left_wheel_vel_msg);
+	_middle_right_wheel_vel_pub.publish(middle_right_wheel_vel_msg);
+	_rear_left_wheel_vel_pub.publish(rear_left_wheel_vel_msg);
+	_rear_right_wheel_vel_pub.publish(rear_right_wheel_vel_msg);
 }
 
 void SmallBotHardwareInterface::updateJointsFromHardware(const ros::Duration& period) {
-	double delta_left_wheel = _left_wheel_angle - _joints[0].position - _joints[0].position_offset;
-	double delta_right_wheel = _right_wheel_angle - _joints[1].position - _joints[1].position_offset;
+	double delta_front_left_wheel = _front_left_wheel_angle - _joints[0].position - _joints[0].position_offset;
+	double delta_front_right_wheel = _front_right_wheel_angle - _joints[1].position - _joints[1].position_offset;
+	double delta_middle_left_wheel = _middle_left_wheel_angle - _joints[2].position - _joints[2].position_offset;
+	double delta_middle_right_wheel = _middle_right_wheel_angle - _joints[3].position - _joints[3].position_offset;
+	double delta_rear_left_wheel = _rear_left_wheel_angle - _joints[4].position - _joints[4].position_offset;
+	double delta_rear_right_wheel = _rear_right_wheel_angle - _joints[5].position - _joints[5].position_offset;
 
-	if (std::abs(delta_left_wheel) < 1) {
-		_joints[0].position += delta_left_wheel;
-		_joints[0].velocity = delta_left_wheel / period.toSec();
+	if (std::abs(delta_front_left_wheel) < 1) {
+		_joints[0].position += delta_front_left_wheel;
+		_joints[0].velocity = delta_front_left_wheel / period.toSec();
 	} else {
-		_joints[0].position_offset += delta_left_wheel;
+		_joints[0].position_offset += delta_front_left_wheel;
 	}
 
-	if (std::abs(delta_right_wheel) < 1) {
-		_joints[1].position += delta_right_wheel;
-		_joints[1].velocity = delta_right_wheel / period.toSec();
+	if (std::abs(delta_front_right_wheel) < 1) {
+		_joints[1].position += delta_front_right_wheel;
+		_joints[1].velocity = delta_front_right_wheel / period.toSec();
 	} else {
-		_joints[1].position_offset += delta_right_wheel;
+		_joints[1].position_offset += delta_front_right_wheel;
 	}
+
+	if (std::abs(delta_middle_left_wheel) < 1) {
+		_joints[2].position += delta_middle_left_wheel;
+		_joints[3].velocity = delta_middle_left_wheel / period.toSec();
+	} else {
+		_joints[2].position_offset += delta_middle_left_wheel;
+	}
+
+	if (std::abs(delta_middle_right_wheel) < 1) {
+		_joints[3].position += delta_middle_right_wheel;
+		_joints[3].velocity = delta_middle_right_wheel / period.toSec();
+	} else {
+		_joints[3].position_offset += delta_middle_right_wheel;
+	}
+	if (std::abs(delta_rear_left_wheel) < 1) {
+		_joints[4].position += delta_rear_left_wheel;
+		_joints[4].velocity = delta_rear_left_wheel / period.toSec();
+	} else {
+		_joints[4].position_offset += delta_rear_left_wheel;
+	}
+
+	if (std::abs(delta_rear_right_wheel) < 1) {
+		_joints[5].position += delta_rear_right_wheel;
+		_joints[5].velocity = delta_rear_right_wheel / period.toSec();
+	} else {
+		_joints[5].position_offset += delta_rear_right_wheel;
+	}
+
 }
 
 void SmallBotHardwareInterface::registerControlInterfaces() {
-	ros::V_string joint_names = boost::assign::list_of("base_to_rear_left_wheel")("base_to_rear_right_wheel")
-		("base_to_front_left_wheel")("base_to_front_right_wheel")("base_to_middle_left_wheel")("base_to_middle_right_wheel");
+	ros::V_string joint_names = boost::assign::list_of("base_to_front_left_wheel")("base_to_front_right_wheel")
+		("base_to_middle_left_wheel")("base_to_middle_right_wheel")("base_to_rear_left_wheel")("base_to_rear_right_wheel");
 
 	for (unsigned int i = 0; i < joint_names.size(); i++) {
 		hardware_interface::JointStateHandle joint_state_handle(joint_names[i], &_joints[i].position, &_joints[i].velocity, &_joints[i].effort);
@@ -119,12 +195,28 @@ void SmallBotHardwareInterface::registerControlInterfaces() {
 	registerInterface(&_velocity_joint_interface);
 }
 
-void SmallBotHardwareInterface::leftWheelAngleCallback(const std_msgs::Float64& msg) {
-	_left_wheel_angle = msg.data;
+void SmallBotHardwareInterface::frontLeftWheelAngleCallback(const std_msgs::Float64& msg) {
+	_front_left_wheel_angle = msg.data;
 }
 
-void SmallBotHardwareInterface::rightWheelAngleCallback(const std_msgs::Float64& msg) {
-	_right_wheel_angle = msg.data;
+void SmallBotHardwareInterface::frontRightWheelAngleCallback(const std_msgs::Float64& msg) {
+	_front_right_wheel_angle = msg.data;
+}
+
+void SmallBotHardwareInterface::middleLeftWheelAngleCallback(const std_msgs::Float64& msg) {
+	_middle_left_wheel_angle = msg.data;
+}
+
+void SmallBotHardwareInterface::middleRightWheelAngleCallback(const std_msgs::Float64& msg) {
+	_middle_right_wheel_angle = msg.data;
+}
+
+void SmallBotHardwareInterface::rearLeftWheelAngleCallback(const std_msgs::Float64& msg) {
+	_rear_left_wheel_angle = msg.data;
+}
+
+void SmallBotHardwareInterface::rearRightWheelAngleCallback(const std_msgs::Float64& msg) {
+	_rear_right_wheel_angle = msg.data;
 }
 
 void SmallBotHardwareInterface::limitDifferentialSpeed(double& diff_speed_left_side, double& diff_speed_right_side) {

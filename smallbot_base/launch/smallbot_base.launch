@@ -1,6 +1,6 @@
 <launch>
 	<node name="smallbot_base_node" pkg="smallbot_base" type="smallbot_base_node" output="screen">
     	<param name="control_frequency" type="int" value="100"/>
-		<param name="max_wheel_angular_speed" type="double" value="18.0"/>
+		<param name="max_wheel_angular_speed" type="double" value="9.0"/>
 	</node>
 </launch>
