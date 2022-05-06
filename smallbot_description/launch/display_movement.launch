@@ -1,0 +1,12 @@
+<launch>
+	<!-- Args -->
+	<arg name="gui" default="true" />
+    <arg name="rvizconfig" default="$(find smallbot_description)/rviz/smallbot_movement.rviz" />
+	<arg name="model" default="$(find smallbot_description)/urdf/smallbot.xacro" />
+	<!-- Params -->
+	<param name="use_gui" value="$(arg gui)" />
+	<!-- Robot Description from URDF -->
+	<param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)" />
+	<!-- Rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="false"/>
+</launch>
