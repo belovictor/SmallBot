@@ -154,12 +154,6 @@ target_link_libraries(encoders
   ${catkin_LIBRARIES} -lwiringPi -lpthread
 )
 
-add_executable(encoders_test src/encoders_test.cpp)
-target_link_libraries(encoders_test
-  ${catkin_LIBRARIES}
-)
-
-
 #############
 ## Install ##
 #############
