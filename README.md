@@ -21,7 +21,7 @@ Motors are controlled by 3 modified [Waveshare Motor Driver HAT for Raspberry bo
 
 [Slamtec RPLidar A1](https://www.slamtec.com/en/Lidar/A1) is used for scanning surroundings and navigation.
 
-Temporarily I had to switch the hardware platform to Raspberry PI as I was not able to reach needed performance on reading motor encoders through Jetson GPIO even after switching from python to c++. This is still a subject from investigation.
+Temporarily I had to switch the hardware platform to Raspberry PI as I was not able to reach needed performance on reading motor encoders through Jetson GPIO even after switching from python to c++. This is still a subject for investigation.
 
 ## What's in the project
 
@@ -88,3 +88,11 @@ Finally to control robot movements
 
 Open robot control plugin from menu - Plugins -> Robot tools -> Robot steering - and set topic to /smallbot_drive_controller/cmd_vel  
 Change linear and angular velocity to make robot moving in Gazebo simulation
+
+### Real robot construction
+
+The real robot is work in progress, I will publish 3D models of it's parts when the design is finished
+
+![smallbot render 1](smallbot_description/images/smallbot_render.jpg)
+
+![smallbot render 2](smallbot_description/images/smallbot_render2.jpg)
