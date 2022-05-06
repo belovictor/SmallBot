@@ -21,7 +21,7 @@ Motors are controlled by 3 modified [Waveshare Motor Driver HAT for Raspberry bo
 
 [Slamtec RPLidar A1](https://www.slamtec.com/en/Lidar/A1) is used for scanning surroundings and navigation.
 
-Temporarily I had to switched the hardware platform to Raspberry PI as I was not able to reach needed performance on reading motor encoders through Jetson GPIO even after switching from python to c++. This is still a subject from investigation.
+Temporarily I had to switch the hardware platform to Raspberry PI as I was not able to reach needed performance on reading motor encoders through Jetson GPIO even after switching from python to c++. This is still a subject from investigation.
 
 ## What's in the project
 
