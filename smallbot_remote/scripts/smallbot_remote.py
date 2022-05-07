@@ -35,7 +35,7 @@ class SmallBotRemote():
 
     MAX_FORWARD_SPEED = 0.2
     MAX_STRAFE_SPEED = 0.1
-    MAX_YAW_SPEED_DEG = 15
+    MAX_YAW_SPEED_RAD = 1.5
 
     def __init__(self):
 
@@ -121,7 +121,7 @@ class SmallBotRemote():
                     self._vel_cmd_msg.linear.x = axis_y * self.MAX_FORWARD_SPEED * -1
                     self._ros_pub_vel_cmd.publish(self._vel_cmd_msg)
                 elif command_array[0] == 'RIGHT':
-                    self._vel_cmd_msg.angular.z = pi / 180 * axis_x * self.MAX_YAW_SPEED_DEG * -1
+                    self._vel_cmd_msg.angular.z = axis_x * self.MAX_YAW_SPEED_RAD * -1
                     self._ros_pub_vel_cmd.publish(self._vel_cmd_msg)
                 print('Cmd Values: x speed: %1.3f m/s, y speed: %1.3f m/s, yaw rate: %1.3f deg/s ' \
                         % (self._vel_cmd_msg.linear.x, self._vel_cmd_msg.linear.y,
