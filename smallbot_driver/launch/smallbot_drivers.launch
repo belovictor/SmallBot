@@ -2,5 +2,5 @@
 	<node name="dc_motors" pkg="smallbot_driver" type="dc_motors" output="screen" />
 	<node name="encoders" pkg="smallbot_driver" type="encoders" output="screen" />
 	<include file="$(find smallbot_driver)/launch/smallbot_pid.launch" />
-	<!-- <include file="$(find smallbot_driver)/launch/smallbot_lidar.launch" /> -->
+	<include file="$(find smallbot_driver)/launch/smallbot_lidar.launch" />
 </launch>
