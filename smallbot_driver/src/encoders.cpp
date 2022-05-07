@@ -1,8 +1,8 @@
-#include "encoder_wiring_pi.hpp"
+#include "encoder_jetsongpio.hpp"
 #include <boost/chrono.hpp>
 #include <std_msgs/Float64.h>
 
-#define PI
+#undef PI
 #ifdef PI
 #define EncoderGpio EncoderWiringPi
 #define EncoderGpioISR EncoderWiringPiISR

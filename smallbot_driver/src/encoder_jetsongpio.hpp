@@ -4,20 +4,20 @@
 #include <ros/ros.h>
 #include <JetsonGPIO.h>
 
-#define ENCODER_1_PIN_A 7
-#define ENCODER_1_PIN_B 13
-#define ENCODER_2_PIN_A 12
-#define ENCODER_2_PIN_B 16
-#define ENCODER_3_PIN_A 15
-#define ENCODER_3_PIN_B 19
-#define ENCODER_4_PIN_A 18
-#define ENCODER_4_PIN_B 22
-#define ENCODER_5_PIN_A 21
-#define ENCODER_5_PIN_B 23
-#define ENCODER_6_PIN_A 24
-#define ENCODER_6_PIN_B 26
+#define ENCODER_1_PIN_A 13
+#define ENCODER_1_PIN_B 7
+#define ENCODER_2_PIN_A 16
+#define ENCODER_2_PIN_B 12
+#define ENCODER_3_PIN_A 19
+#define ENCODER_3_PIN_B 15
+#define ENCODER_4_PIN_A 22
+#define ENCODER_4_PIN_B 18
+#define ENCODER_5_PIN_A 23
+#define ENCODER_5_PIN_B 21
+#define ENCODER_6_PIN_A 26
+#define ENCODER_6_PIN_B 24
 
-#define PULSES_PER_REVOLUTION 374
+#define PULSES_PER_REVOLUTION 748 // 374 pulses per evolution * 2 encoders
 
 namespace EncoderJetsonGpioISR {
     volatile long encoderPosition1;
@@ -34,26 +34,20 @@ namespace EncoderJetsonGpioISR {
     volatile uint8_t encoderState6;
 
     void encoderISR(const int pinA, const int pinB, volatile long &encoderPosition, volatile uint8_t &encoderState) {
-        // uint8_t valA = GPIO::input(pinA);
+        uint8_t valA = GPIO::input(pinA);
         uint8_t valB = GPIO::input(pinB);
-        // uint8_t s = encoderState & 3;
-        // if (valA) s |= 4;
-        // if (valB) s |= 8;
-        // encoderState = (s >> 2);
-        // if (s == 1 || s == 7 || s == 8 || s == 14)
-        //     encoderPosition++;
-        // else if (s == 2 || s == 4 || s == 11 || s == 13)
-        //     encoderPosition--;
-        // else if (s == 3 || s == 12)
-        //     encoderPosition += 2;
-        // else if (s == 6 || s == 9)
-        //     encoderPosition -= 2;
-        // if (valB == 1) {
-        //     encoderPosition--;
-        // } else {
-        //     encoderPosition++;
-        // }
-        encoderPosition++;
+        uint8_t s = encoderState & 3;
+        if (valA) s |= 4;
+        if (valB) s |= 8; 
+        encoderState = (s >> 2);
+        if (s == 1 || s == 7 || s == 8 || s == 14)
+            encoderPosition++;
+        else if (s == 2 || s == 4 || s == 11 || s == 13)
+            encoderPosition--;
+        else if (s == 3 || s == 12)
+            encoderPosition += 2;
+        else if (s == 6 || s == 9)
+            encoderPosition -= 2;
     }
 
     void encoderISR1(void) {
@@ -102,8 +96,8 @@ EncoderJetsonGpio::EncoderJetsonGpio(const int &pinA, const int &pinB, void (*is
     _pinB = pinB;
     GPIO::setup(_pinA, GPIO::IN);
     GPIO::setup(_pinB, GPIO::IN);
-    GPIO::add_event_detect(_pinA, GPIO::RISING, isrFunction, 0);
-    // GPIO::add_event_detect(_pinB, GPIO::BOTH, isrFunction, 0);
+    GPIO::add_event_detect(_pinA, GPIO::BOTH, isrFunction, 0);
+    GPIO::add_event_detect(_pinB, GPIO::BOTH, isrFunction, 0);
     _initial_angle = ticks2Angle(*_encoderPosition);
     ROS_INFO("Encoder: encoder initialization complete");
 }

@@ -151,7 +151,7 @@ target_link_libraries(dc_motors
 
 add_executable(encoders src/encoders.cpp)
 target_link_libraries(encoders
-  ${catkin_LIBRARIES} -lwiringPi -lpthread
+  ${catkin_LIBRARIES} -lJetsonGPIO -lpthread
 )
 
 #############
