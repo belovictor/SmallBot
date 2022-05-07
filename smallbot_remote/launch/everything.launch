@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+    <include file="$(find smallbot_description)/launch/bringup.launch" />
+    <node name="smallbot_remote" pkg="smallbot_remote" type="smallbot_remote.py" output="screen" />
+</launch>
