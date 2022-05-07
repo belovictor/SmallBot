@@ -96,3 +96,8 @@ The real robot is work in progress, I will publish 3D models of it's parts when 
 ![smallbot render 1](smallbot_description/images/smallbot_render.jpg)
 
 ![smallbot render 2](smallbot_description/images/smallbot_render2.jpg)
+
+### References
+
+First of all, much of the code in this project is based on [Amperka Abot ROS robot](https://github.com/amperka/abot/) and their [series of posts on how to build your own robot with ROS](https://amperka.ru/blogs/projects/abot-robot-part-1)
+
